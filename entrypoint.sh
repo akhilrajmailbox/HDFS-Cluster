@@ -62,9 +62,9 @@ function service_start() {
 function health_check() {
     service_start
     if [[ ${HDFS_MASTER} == true ]] ; then
-        export Node_Status=$(jps | grep DataNode)
-    else
         export Node_Status=$(jps | grep NameNode)
+    else
+        export Node_Status=$(jps | grep DataNode)
     fi
     export SSH_Status=$(ps -ef | grep sshd)
     while true ; do
