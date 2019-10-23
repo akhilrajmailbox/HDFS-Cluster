@@ -1,0 +1,70 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: hdfs-datanode
+  namespace: hdfs-cluster
+  labels:
+    component: hdfs-datanode
+    role: data
+spec:
+  serviceName: hdfs-datanode
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        component: hdfs-datanode
+        role: data
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: agentpool
+                  operator: In
+                  values:
+                  - agentpool
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: datanode
+        imagePullPolicy: Always
+        image: akhilrajmailbox/hdfs:3.2.1
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: DATANODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: HDFS_MASTER
+          value: "false"
+        - name: HDFS_MASTER_URL
+          value: "hdfs-master"
+        - name: DATA_REPLICA
+          value: "2"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: 100m
+          limits:
+            memory: "2Gi"
+            cpu: 1
+        ports:
+        volumeMounts:
+        - name: storage
+          mountPath: /home/hadoop/data
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "fast"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: fast
+      resources:
+        requests:
+          storage: 99Gi

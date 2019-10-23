@@ -1,0 +1,67 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hdfs-namenode
+  namespace: hdfs-cluster
+  labels:
+    component: hdfs-namenode
+    role: master
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        component: hdfs-namenode
+        role: master
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: agentpool
+                  operator: In
+                  values:
+                  - agentpool
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: hdfs-namenode
+        imagePullPolicy: Always
+        image: akhilrajmailbox/hdfs:3.2.1
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: DATANODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: HDFS_MASTER
+          value: "true"
+        - name: HDFS_MASTER_URL
+          value: "hdfs-master"
+        - name: DATA_REPLICA
+          value: "2"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: 100m
+          limits:
+            memory: "2Gi"
+            cpu: 1
+        ports:
+        - containerPort: 9870
+          name: webui
+        - containerPort: 9000
+          name: master
+        volumeMounts:
+        - mountPath: /home/hadoop/data
+          name: namenode-storage
+      restartPolicy: Always
+      volumes:
+      - name: namenode-storage
+        persistentVolumeClaim:
+          claimName: namenode-storage-vol

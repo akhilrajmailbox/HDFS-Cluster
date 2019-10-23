@@ -1,4 +1,4 @@
-# HDFS-Cluster On AKS
+# Hadoop Distributed File System (HDFS)-Cluster On AKS
 
 **Tested on Azure, This deployment will work in any other cloud but have to change the configurations for storageclass and loadbalancer configurations**
 
@@ -49,6 +49,41 @@ This image can be configured by means of environment variables, that one can set
 | DATANODE_NAME | localhost |
 
 
+
+# Kubernetes Deployment 
+
+**Run these commands from `Kubernetes` Folder**
+
+
+## Create Namespace for Elasticsearch Deployment
+```
+kubectl apply -f hdfs-namespace.yaml
+```
+
+## create fast storageclass
+```
+kubectl apply -f hdfs-storageclass.yaml
+kubectl get storageclass
+```
+
+## Deploy namenodes
+```
+kubectl apply -f hdfs-namenode-pvc.yaml
+kubectl apply -f hdfs-namenode-deployment.yaml
+kubectl apply -f hdfs-namenode-service.yaml
+kubectl -n hdfs-cluster get pods
+```
+
+## Deploy datanodes
+```
+kubectl apply -f hdfs-datanode-deployment.yaml
+kubectl -n hdfs-cluster get pods
+```
+
+
+
+
+
 ## Easy Commands
 
 * to list all nodes in HDFS cluster
@@ -56,3 +91,4 @@ This image can be configured by means of environment variables, that one can set
 ```
 hadoop dfsadmin -report
 ```
+

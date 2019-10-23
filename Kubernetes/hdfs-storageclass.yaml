@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: fast
+provisioner: kubernetes.io/azure-disk
+parameters:
+  # storageaccount: Standard_LRS
+  storageaccount: Premium_LRS
+  fsType: xfs
+allowVolumeExpansion: true

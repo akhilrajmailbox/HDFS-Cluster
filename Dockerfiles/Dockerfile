@@ -48,7 +48,7 @@ RUN echo "export HADOOP_HOME=/home/hadoop/hadoop" >> /etc/profile
 RUN echo "export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin" >> /etc/profile
 
 ENV HDFS_MASTER true
-ENV HDFS_MASTER_URL node-master
+ENV HDFS_MASTER_URL hdfs-master
 ENV DATA_REPLICA 1
 ENV DATANODE_NAME localhost
 
