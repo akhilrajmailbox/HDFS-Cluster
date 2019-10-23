@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function (core_site_conf){
+function core_site_conf() {
 cat << EOF > /home/hadoop/hadoop/etc/hadoop/core-site.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
@@ -14,7 +14,7 @@ EOF
 }
 
 
-function (hdfs_site_conf){
+function hdfs_site_conf() {
     core_site_conf
 cat << EOF > /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
 <configuration>
@@ -44,7 +44,7 @@ EOF
 }
 
 
-function (service_start){
+function service_start() {
     hdfs_site_conf
     ## start ssh services
     /etc/init.d/sshd start
@@ -59,7 +59,7 @@ function (service_start){
 }
 
 
-function (health_check){
+function health_check() {
     service_start
     if [[ ${HDFS_MASTER} == true ]] ; then
         export Node_Status=$(jps | grep DataNode)
