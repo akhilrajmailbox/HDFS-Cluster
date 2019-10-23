@@ -48,3 +48,6 @@ This image can be configured by means of environment variables, that one can set
 | DATA_REPLICA | 1 |
 | DATANODE_NAME | localhost |
 
+
+to list all nodes in HDFS cluster
+hadoop dfsadmin -report
