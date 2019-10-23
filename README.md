@@ -49,5 +49,10 @@ This image can be configured by means of environment variables, that one can set
 | DATANODE_NAME | localhost |
 
 
-to list all nodes in HDFS cluster
+## Easy Commands
+
+* to list all nodes in HDFS cluster
+
+```
 hadoop dfsadmin -report
+```

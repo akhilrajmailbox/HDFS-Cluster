@@ -50,7 +50,7 @@ function service_start() {
     /etc/init.d/sshd start
     if [[ ${HDFS_MASTER} == true ]] ; then
         # echo "" > /home/hadoop/hadoop/etc/hadoop/workers
-        hdfs namenode -format
+        yes n | hdfs namenode -format
         hadoop-daemon.sh start namenode
     else
         # echo "$DATANODE_NAME" > /home/hadoop/hadoop/etc/hadoop/workers
