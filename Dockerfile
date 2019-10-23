@@ -46,3 +46,4 @@ ENV DATA_REPLICA 1
 ENV DATANODE_NAME localhost
 
 CMD ["/etc/init.d/sshd", "start"]
+ENTRYPOINT [ "/home/hadoop/entrypoint.sh" ]
