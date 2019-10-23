@@ -15,3 +15,23 @@ spec:
     port: 9000
     protocol: TCP
   clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-webui
+  namespace: hdfs-cluster
+  annotations: 
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    # service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "datamall-dev-publicsubnet1"
+  labels:
+    component: hdfs-namenode
+    role: master
+spec:
+  selector:
+    component: hdfs-namenode
+    role: master
+  ports:
+  - name: http
+    port: 9870
+  type: LoadBalancer
