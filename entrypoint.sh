@@ -71,8 +71,6 @@ function health_check() {
         if [[ -z ${Node_Status} ]] || [[ -z ${SSH_Status} ]] ; then
             echo "Either hdfs node (NameNode or DataNode) and ssh are not running.... Task aborting...!"
             exit 1
-        else
-            echo "hdfs node (NameNode or DataNode) and ssh are running"
         fi
     done
 }
