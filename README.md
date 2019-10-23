@@ -44,7 +44,7 @@ This image can be configured by means of environment variables, that one can set
 | Variable Name | Default Value |
 |---------------|---------------|
 | HDFS_MASTER | true |
-| HDFS_MASTER_URL | node-master |
+| HDFS_MASTER_URL | hdfs-master |
 | DATA_REPLICA | 1 |
 | DATANODE_NAME | localhost |
 
