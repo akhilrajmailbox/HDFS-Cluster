@@ -33,5 +33,6 @@ spec:
     role: master
   ports:
   - name: http
-    port: 9870
+    port: 80
+    targetPort: 9870
   type: LoadBalancer
