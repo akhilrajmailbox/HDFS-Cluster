@@ -31,9 +31,9 @@ RUN tar -xf hadoop-${HDFS_VERSION}.tar.gz && rm -rf hadoop-${HDFS_VERSION}.tar.g
 RUN mv hadoop-${HDFS_VERSION} hadoop
 ENV HADOOP_HOME "/home/hadoop/hadoop"
 ENV PATH "$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin"
+USER root
 ADD entrypoint.sh /home/hadoop/entrypoint.sh
 RUN chmod a+x /home/hadoop/entrypoint.sh
-USER root
 
 RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk" >> /etc/profile
 RUN echo "export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk" >>/home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
