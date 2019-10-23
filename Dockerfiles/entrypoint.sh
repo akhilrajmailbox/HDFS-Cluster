@@ -31,8 +31,13 @@ cat << EOF > /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
     </property>
 
     <property>
-        <name>dfs.disk.balancer.enabled</name>
-        <value>true</value>
+            <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+            <value>false</value>
+    </property>
+
+    <property>
+            <name>dfs.disk.balancer.enabled</name>
+            <value>true</value>
     </property>
 
     <property>
