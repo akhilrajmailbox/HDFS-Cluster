@@ -133,15 +133,21 @@ hadoop fs -ls hdfs://10.50.144.32:9000/
 
 * Inserting Data into HDFS (Transfer and store a data file from local systems to the Hadoop file system using the put command)
 ```
-hadoop fs -mkdir hdfs://10.50.144.32:9000/user/input 
-hadoop fs -put /path/to/file.txt hdfs://10.50.144.32:9000/user/input
-hadoop fs -ls hdfs://10.50.144.32:9000/user/input
+hadoop fs -mkdir hdfs://10.50.144.32:9000/input 
+hadoop fs -put /path/to/file.txt hdfs://10.50.144.32:9000/input
+hadoop fs -ls hdfs://10.50.144.32:9000/input
 ```
 
 * Retrieving Data from HDFS
 ```
-hadoop fs -cat hdfs://10.50.144.32:9000/user/input/file.txt
-hadoop fs -get hdfs://10.50.144.32:9000/user/input/file.txt /tmp/
+hadoop fs -cat hdfs://10.50.144.32:9000/input/file.txt
+hadoop fs -get hdfs://10.50.144.32:9000/input/file.txt /tmp/
+```
+
+* Delete data from HDFS (files and directory)
+```
+hadoop fs -rm hdfs://10.50.144.32:9000/input/file.txt
+hadoop fs -rm -r hdfs://10.50.144.32:9000/input
 ```
 
 **If Hadoop CLI does not return an error message, then your setup is correct**
