@@ -1,8 +1,29 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: hdfs-master
+#   namespace: hdfs-cluster
+#   labels:
+#     component: hdfs-namenode
+#     role: master
+# spec:
+#   selector:
+#     component: hdfs-namenode
+#     role: master
+#   ports:
+#   - name: master
+#     port: 9000
+#     protocol: TCP
+#   clusterIP: None
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: hdfs-master
   namespace: hdfs-cluster
+  # annotations: 
+  #   service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  #   service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "datamall-dev-publicsubnet1"
   labels:
     component: hdfs-namenode
     role: master
@@ -13,8 +34,9 @@ spec:
   ports:
   - name: master
     port: 9000
+    targetPort: 9000
     protocol: TCP
-  clusterIP: None
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service

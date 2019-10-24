@@ -67,4 +67,4 @@ spec:
       storageClassName: fast
       resources:
         requests:
-          storage: 99Gi
+          storage: 55Gi

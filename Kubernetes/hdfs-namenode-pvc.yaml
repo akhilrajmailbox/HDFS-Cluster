@@ -1,5 +1,5 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   namespace: hdfs-cluster
   name: namenode-storage-vol
@@ -8,5 +8,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 25Gi
-  storageClassName: fast
+      storage: 101Gi
+  storageClassName: azurefile

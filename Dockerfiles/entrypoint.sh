@@ -57,6 +57,8 @@ function service_start() {
         # echo "" > /home/hadoop/hadoop/etc/hadoop/workers
         yes n | hdfs namenode -format
         hadoop-daemon.sh start namenode
+        sleep 5
+        hadoop-daemon.sh start secondarynamenode
     else
         # echo "$DATANODE_NAME" > /home/hadoop/hadoop/etc/hadoop/workers
         hadoop-daemon.sh start datanode
@@ -66,17 +68,24 @@ function service_start() {
 
 function health_check() {
     service_start
-    if [[ ${HDFS_MASTER} == true ]] ; then
-        export Node_Status=$(jps | grep NameNode)
-    else
-        export Node_Status=$(jps | grep DataNode)
-    fi
-    export SSH_Status=$(ps -ef | grep sshd)
+    export Node_Status="dummy value"
+    export Sec_Node_Status="dummy value"
+    export SSH_Status="dummy value"
+
     while true ; do
-        if [[ -z ${Node_Status} ]] || [[ -z ${SSH_Status} ]] ; then
-            echo "Either hdfs node (NameNode or DataNode) and ssh are not running.... Task aborting...!"
+        if [[ -z ${Node_Status} ]] || [[ -z ${Sec_Node_Status} ]] || [[ -z ${SSH_Status} ]] ; then
+            echo "Either hdfs node (NameNode or SecondaryNameNode or DataNode) and ssh are not running.... Task aborting...!"
             exit 1
         fi
+
+        if [[ ${HDFS_MASTER} == true ]] ; then
+            export Node_Status=$(jps | grep NameNode)
+            export Sec_Node_Status=$(jps | grep SecondaryNameNode)
+        else
+            export Node_Status=$(jps | grep DataNode)
+            export Sec_Node_Status="dummy data because SecondaryNameNode available only on master node"
+        fi
+        export SSH_Status=$(ps -ef | grep sshd)
     done
 }
 
