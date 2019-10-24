@@ -21,8 +21,8 @@ kind: Service
 metadata:
   name: hdfs-master
   namespace: hdfs-cluster
-  # annotations: 
-  #   service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  annotations: 
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   #   service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "datamall-dev-publicsubnet1"
   labels:
     component: hdfs-namenode
