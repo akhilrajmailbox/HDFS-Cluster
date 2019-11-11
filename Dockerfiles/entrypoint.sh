@@ -36,22 +36,6 @@ cat << EOF > /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
     </property>
 
     <property>
-            <name>dfs.client.use.datanode.hostname</name>
-            <value>true</value>
-            <description>Whether clients should use datanode hostnames when
-                connecting to datanodes.
-            </description>
-    </property>
-
-    <property>
-            <name>dfs.datanode.use.datanode.hostname</name>
-            <value>true</value>
-            <description>Whether datanodes should use datanode hostnames when
-                connecting to other datanodes for data transfer.
-            </description>
-    </property>
-
-    <property>
             <name>dfs.disk.balancer.enabled</name>
             <value>true</value>
     </property>
