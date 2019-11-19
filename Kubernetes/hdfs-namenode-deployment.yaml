@@ -15,16 +15,14 @@ spec:
         role: master
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: agentpool
-                  operator: In
-                  values:
-                  - agentpool
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - agentpool
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hdfs-namenode
