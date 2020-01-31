@@ -69,17 +69,20 @@ This image can be configured by means of environment variables, that one can set
 
 
 ### Create Namespace for Elasticsearch Deployment
+
 ```
 kubectl apply -f hdfs-namespace.yaml
 ```
 
 ### create fast storageclass (for datanode)
+
 ```
 kubectl apply -f disk-storageclass.yaml
 kubectl get storageclass
 ```
 
 ### create azure files storageclass (for namenode)
+
 ```
 kubectl apply -f azure-file-storageclass.yaml
 kubectl get storageclass
@@ -88,6 +91,7 @@ kubectl apply -f azure-file-pvc-roles.yaml
 
 
 ### Deploy namenodes
+
 ```
 kubectl apply -f hdfs-namenode-pvc.yaml
 kubectl apply -f hdfs-namenode-deployment.yaml
@@ -96,6 +100,7 @@ kubectl -n hdfs-cluster get pods
 ```
 
 ### Deploy datanodes
+
 ```
 kubectl apply -f hdfs-datanode-deployment.yaml
 kubectl -n hdfs-cluster get pods
@@ -108,16 +113,19 @@ kubectl -n hdfs-cluster get pods
 ## Easy Commands
 
 * to list all nodes in HDFS cluster (run within the cluster)
+
 ```
 hadoop dfsadmin -report
 ```
 
 * service management on hdfs cluster
+
 ```
 hadoop-daemon.sh start [namenode | secondarynamenode | datanode | jobtracker | tasktracker]
 ```
 
-* hdfs url to access 
+* hdfs url to access
+
 ```
 hdfs://<namenode>:<ipc_port>
 
@@ -127,11 +135,13 @@ example : hdfs://10.50.144.32:9000/
 * Test write access to the Hadoop cluster
 
 * Listing Files in HDFS
+
 ```
 hadoop fs -ls hdfs://10.50.144.32:9000/
 ```
 
 * Inserting Data into HDFS (Transfer and store a data file from local systems to the Hadoop file system using the put command)
+
 ```
 hadoop fs -mkdir hdfs://10.50.144.32:9000/input 
 hadoop fs -put /path/to/file.txt hdfs://10.50.144.32:9000/input
@@ -139,12 +149,14 @@ hadoop fs -ls hdfs://10.50.144.32:9000/input
 ```
 
 * Retrieving Data from HDFS
+
 ```
 hadoop fs -cat hdfs://10.50.144.32:9000/input/file.txt
 hadoop fs -get hdfs://10.50.144.32:9000/input/file.txt /tmp/
 ```
 
 * Delete data from HDFS (files and directory)
+
 ```
 hadoop fs -rm hdfs://10.50.144.32:9000/input/file.txt
 hadoop fs -rm -r hdfs://10.50.144.32:9000/input
